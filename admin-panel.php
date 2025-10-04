@@ -231,11 +231,34 @@ function get_specs(){
       <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Book Appointment</a>
       <a class="list-group-item list-group-item-action" href="#app-hist" id="list-pat-list" role="tab" data-toggle="list" aria-controls="home">Appointment History</a>
       <a class="list-group-item list-group-item-action" href="#list-pres" id="list-pres-list" role="tab" data-toggle="list" aria-controls="home">Prescriptions</a>
-      
+      <a class="list-group-item list-group-item-action" id="list-map-list" data-toggle="list" href="#list-map" role="tab">Nearby Hospitals</a>
+
     </div><br>
   </div>
   <div class="col-md-8" style="margin-top: 3%;">
     <div class="tab-content" id="nav-tabContent" style="width: 950px;">
+<div class="tab-pane fade" id="list-map" role="tabpanel" aria-labelledby="list-map-list">
+  <div class="card">
+    <div class="card-body">
+      <h4>Find Nearby Hospitals</h4>
+      <p>Use the map below to find nearby hospitals and their contact info:</p>
+      
+      <!-- Google Maps Embed -->
+      <iframe 
+         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.954824280871!2d72.877655!3d19.076090!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c630dcb84cbd%3A0x1234567890abcdef!2sHospital!5e0!3m2!1sen!2sin!4v1693142851234" 
+         width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy">
+      </iframe>
+      
+      <br><br>
+      <h5>Emergency Contacts</h5>
+      <ul>
+        <li>Global Hospital - +91 9876543210</li>
+        <li>City Care Clinic - +91 9123456789</li>
+        <li>HealthPoint Medical - +91 9988776655</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 
       <div class="tab-pane fade  show active" id="list-dash" role="tabpanel" aria-labelledby="list-dash-list">
