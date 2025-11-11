@@ -139,7 +139,8 @@ if(isset($_POST['docsub1']))
       <a class="list-group-item list-group-item-action" href="#list-settings" id="list-adoc-list"  role="tab" data-toggle="list" aria-controls="home">Add Doctor</a>
       <a class="list-group-item list-group-item-action" href="#list-settings1" id="list-ddoc-list"  role="tab" data-toggle="list" aria-controls="home">Delete Doctor</a>
       <a class="list-group-item list-group-item-action" href="#list-mes" id="list-mes-list"  role="tab" data-toggle="list" aria-controls="home">Queries</a>
-      <a class="list-group-item list-group-item-action" href="admin-audit.php" id="list-audit-list" role="tab" aria-controls="home"><i class="fa fa-history" aria-hidden="true"></i> Audit Log</a>
+  <a class="list-group-item list-group-item-action" href="admin-lab.php" id="list-labadmin-list" role="tab" aria-controls="home"><i class="fa fa-vial" aria-hidden="true"></i> Lab Summary</a>
+  <a class="list-group-item list-group-item-action" href="admin-audit.php" id="list-audit-list" role="tab" aria-controls="home"><i class="fa fa-history" aria-hidden="true"></i> Audit Log</a>
       
     </div><br>
   </div>

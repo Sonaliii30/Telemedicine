@@ -108,6 +108,7 @@ if(isset($_GET['cancel']))
       <a class="list-group-item list-group-item-action active" href="#list-dash" role="tab" aria-controls="home" data-toggle="list">Dashboard</a>
       <a class="list-group-item list-group-item-action" href="#list-app" id="list-app-list" role="tab" data-toggle="list" aria-controls="home">Appointments</a>
       <a class="list-group-item list-group-item-action" href="#list-pres" id="list-pres-list" role="tab" data-toggle="list" aria-controls="home"> Prescription List</a>
+      <a class="list-group-item list-group-item-action" href="#list-lab" id="list-lab-list" role="tab" data-toggle="list" aria-controls="home"> Lab Orders</a>
       
     </div><br>
   </div>
@@ -152,12 +153,27 @@ if(isset($_GET['cancel']))
                   </div>
                 </div>    
 
+                <div class="col-sm-4" style="left: 20%;margin-top:5%">
+                  <div class="panel panel-white no-radius text-center">
+                    <div class="panel-body" >
+                      <span class="fa-stack fa-2x"> <i class="fa fa-square fa-stack-2x text-primary"></i> <i class="fa fa-vial fa-stack-1x fa-inverse"></i> </span>
+                      <h4 class="StepTitle" style="margin-top: 5%;">Lab Orders</h4>
+                      
+                      <p class="cl-effect-1">
+                        <a href="#list-lab" onclick="clickDiv('#list-lab-list')">
+                          View Lab Orders
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
              </div>
            </div>
          </div>
     
 
-    <div class="tab-pane fade" id="list-app" role="tabpanel" aria-labelledby="list-home-list">
+  <div class="tab-pane fade" id="list-app" role="tabpanel" aria-labelledby="list-app-list">
         
               <table class="table table-hover">
                 <thead>
@@ -174,7 +190,7 @@ if(isset($_GET['cancel']))
                     <th scope="col">Current Status</th>
                     <th scope="col">Action</th>
                     <th scope="col">Prescribe</th>
-
+                    <th scope="col">Order Lab</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -185,9 +201,16 @@ if(isset($_GET['cancel']))
                     $query = "select pid,ID,fname,lname,gender,email,contact,appdate,apptime,userStatus,doctorStatus from appointmenttb where doctor='$dname';";
                     $result = mysqli_query($con,$query);
                     while ($row = mysqli_fetch_array($result)){
+                      // ensure patient exists before showing action links (prevents FK errors when ordering labs)
+                      $appt_pid = intval($row['pid']);
+                      $patient_exists = false;
+                      $chk = mysqli_query($con, "SELECT pid FROM patreg WHERE pid = " . $appt_pid . " LIMIT 1");
+                      if($chk && mysqli_num_rows($chk) > 0){
+                        $patient_exists = true;
+                      }
                       ?>
                       <tr>
-                      <td><?php echo $row['pid'];?></td>
+                        <td><?php echo $row['pid'];?></td>
                         <td><?php echo $row['ID'];?></td>
                         <td><?php echo $row['fname'];?></td>
                         <td><?php echo $row['lname'];?></td>
@@ -241,9 +264,25 @@ if(isset($_GET['cancel']))
                             } ?>
                         
                         </td>
+                        <td>
+                        <?php if(($row['userStatus']==1) && ($row['doctorStatus']==1))  
+                        { 
+                          if($patient_exists){ ?>
 
+                            <a href="doctor-order-lab.php?pid=<?php echo $row['pid']?>&ID=<?php echo $row['ID']?>&fname=<?php echo $row['fname']?>&lname=<?php echo $row['lname']?>&appdate=<?php echo $row['appdate']?>&apptime=<?php echo $row['apptime']?>"
+                            tooltip-placement="top" tooltip="Order Lab" title="Order Lab">
+                            <button class="btn btn-info">Order Lab</button></a>
 
-                      </tr></a>
+                          <?php } else { ?>
+                            <span class="text-muted" title="Patient record missing">- (no patient)</span>
+                          <?php }
+                        } else {
+
+                            echo "-";
+                        } ?>
+                        </td>
+
+                      </tr>
                     <?php } ?>
                 </tbody>
               </table>
@@ -307,7 +346,7 @@ if(isset($_GET['cancel']))
 
 
 
-      <div class="tab-pane fade" id="list-app" role="tabpanel" aria-labelledby="list-pat-list">
+  <div class="tab-pane fade" id="list-all-app" role="tabpanel" aria-labelledby="list-all-list">
         
               <table class="table table-hover">
                 <thead>
